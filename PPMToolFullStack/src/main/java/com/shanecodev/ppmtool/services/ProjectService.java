@@ -33,4 +33,8 @@ public class ProjectService {
 
         return project;
     }
+    // returns all json objects as a list
+    public Iterable<Project> findAllProjects() {
+        return projectRepository.findAll();
+    }
 }
