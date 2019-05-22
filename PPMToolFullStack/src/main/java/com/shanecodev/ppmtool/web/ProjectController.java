@@ -16,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/project")
+@CrossOrigin
 public class ProjectController {
 
     @Autowired
@@ -31,15 +32,15 @@ public class ProjectController {
         if(errorMap != null) return errorMap;
 
         Project projectObject = projectService.saveOrUpdateProject(project);
-        return new ResponseEntity<Project>(projectObject, HttpStatus.CREATED);
+        return new ResponseEntity<>(projectObject, HttpStatus.CREATED);
     }
 
     @GetMapping("/{projectId}")
     public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
 
         Project project = projectService.findProjectByIdentifier(projectId);
+        return new ResponseEntity<>(project, HttpStatus.OK);
 
-        return new ResponseEntity<Project>(project, HttpStatus.OK);
     }
 
     @GetMapping("/all")
@@ -51,6 +52,6 @@ public class ProjectController {
     public ResponseEntity<?> deleteProject(@PathVariable String projectId) {
         projectService.deleteProjectByIdentifier(projectId);
 
-        return new ResponseEntity<String>("Project with ID: '"+ projectId + "' was deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Project with ID: '"+ projectId + "' was deleted", HttpStatus.OK);
     }
 }
