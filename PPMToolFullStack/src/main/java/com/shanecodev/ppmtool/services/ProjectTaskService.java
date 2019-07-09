@@ -10,6 +10,8 @@ import com.shanecodev.ppmtool.repositories.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectTaskService {
 
@@ -38,14 +40,12 @@ public class ProjectTaskService {
             // Add sequence to project task
             projectTask.setProjectSequence(backlog.getProjectIdentifier()+"-"+BacklogSequence);
             projectTask.setProjectIdentifier(projectIdentifier);
-
             // INITIAL priority when priority null
 
             // INITIAL status when status is null
             if(projectTask.getStatus() == "" || projectTask.getStatus() == null) {
                 projectTask.setStatus("TO_DO");
             }
-
             /* TODO: We need projectTask.getPriority() == 0 to handle the form */
             if(projectTask.getPriority() == null) {
                 projectTask.setPriority(3);
@@ -85,15 +85,16 @@ public class ProjectTaskService {
     }
 
     public ProjectTask updateByProjectSequence(ProjectTask updatedTask, String backlog_id, String pt_id) {
-        ProjectTask projectTask = projectTaskRepository.findByProjectSequence(pt_id);
+        ProjectTask projectTask = findProjectTaskByProjectSequence(backlog_id, pt_id);
 
         projectTask = updatedTask;
 
         return projectTaskRepository.save(projectTask);
     }
-    //Update project task
 
-    //find existing project task
-    //replace it with updated task
-    //save update
+    public void deleteProjectTaskByProjectSequence(String backlog_id, String pt_id) {
+        ProjectTask projectTask = findProjectTaskByProjectSequence(backlog_id, pt_id);
+
+        projectTaskRepository.delete(projectTask);
+    }
 }
