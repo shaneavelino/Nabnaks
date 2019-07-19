@@ -29,7 +29,7 @@ public class ProjectTaskService {
         try {
             // Project tasks to be added to a specific project, project != null, Backlog exists
             Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
-            // Set the backlog to the projecttask
+            // Set the backlog to the project-task
             projectTask.setBacklog(backlog);
             // we want our project sequence to be like this: IDPRO-1 IDPRO-2 ...100 101
             Integer BacklogSequence = backlog.getPTSequence();
@@ -47,7 +47,7 @@ public class ProjectTaskService {
                 projectTask.setStatus("TO_DO");
             }
             /* TODO: We need projectTask.getPriority() == 0 to handle the form */
-            if(projectTask.getPriority() == null) {
+            if(projectTask.getPriority() == 0 || projectTask.getPriority() == null) {
                 projectTask.setPriority(3);
             }
 
