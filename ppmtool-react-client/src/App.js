@@ -11,6 +11,7 @@ import UpdateProject from "./components/Project/UpdateProject";
 import ProjectBoard from "./components/ProjectBoard/ProjectBoard";
 import AddProjectTask from "./components/ProjectBoard/ProjectTasks/AddProjectTask";
 import UpdateProjectTask from "./components/ProjectBoard/ProjectTasks/UpdateProjectTask";
+import Calendar from "./components/Calendar";
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
           <div className="App">
             <Header />
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/calendar" component={Calendar} />
             <Route exact path="/addProject" component={AddProject} />
             <Route exact path="/updateProject/:id" component={UpdateProject} />
             <Route exact path="/projectBoard/:id" component={ProjectBoard} />
@@ -41,3 +43,4 @@ class App extends Component {
 }
 
 export default App;
+
