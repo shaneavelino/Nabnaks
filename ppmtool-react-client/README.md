@@ -1,4 +1,6 @@
-Simple Kanban style project management tool to learn fullstack with deployment.
+# Simple kanban style project management tool
 
-clone repo
-npm install
+Goal was to learn React Redux Spring Boot and deployment
+
++ clone repo
++ npm install
