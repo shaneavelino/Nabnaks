@@ -57,6 +57,7 @@ public class UserController {
                 )
         );
 
+        // Authentication
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = TOKEN_PREFIX + tokenProvider.generateToken(authentication);
 
@@ -72,6 +73,6 @@ public class UserController {
 
         User newUser = userService.saveUser(user);
 
-        return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 }
