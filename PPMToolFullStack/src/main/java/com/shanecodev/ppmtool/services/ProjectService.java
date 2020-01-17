@@ -2,12 +2,14 @@ package com.shanecodev.ppmtool.services;
 
 import com.shanecodev.ppmtool.domain.Backlog;
 import com.shanecodev.ppmtool.domain.Project;
+import com.shanecodev.ppmtool.domain.User;
 import com.shanecodev.ppmtool.exceptions.ProjectIdException;
 import com.shanecodev.ppmtool.repositories.BacklogRepository;
 import com.shanecodev.ppmtool.repositories.ProjectRepository;
+import com.shanecodev.ppmtool.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+
 
 @Service
 public class ProjectService {
@@ -18,8 +20,14 @@ public class ProjectService {
     @Autowired
     private BacklogRepository backlogRepository;
 
-    public Project saveOrUpdateProject(Project project) {
+    @Autowired
+    private UserRepository userRepository;
+
+    public Project saveOrUpdateProject(Project project, String username) {
         try {
+            User user = userRepository.findByUsername(username);
+            project.setUser(user);
+            project.setProjectLeader(user.getUsername());
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
 
             if(project.getId() == null) {
