@@ -4,6 +4,7 @@ import com.shanecodev.ppmtool.domain.Backlog;
 import com.shanecodev.ppmtool.domain.Project;
 import com.shanecodev.ppmtool.domain.User;
 import com.shanecodev.ppmtool.exceptions.ProjectIdException;
+import com.shanecodev.ppmtool.exceptions.ProjectNotFoundException;
 import com.shanecodev.ppmtool.repositories.BacklogRepository;
 import com.shanecodev.ppmtool.repositories.ProjectRepository;
 import com.shanecodev.ppmtool.repositories.UserRepository;
@@ -48,31 +49,27 @@ public class ProjectService {
         }
     }
 
-    public Project findProjectByIdentifier(String projectId) {
+    public Project findProjectByIdentifier(String projectId, String username) {
 
         Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 
-        if(project == null) {
+        if (project == null) {
             throw new ProjectIdException("Project ID '" + projectId + "' does not exist");
+        }
+
+        if (!project.getProjectLeader().equals(username)) {
+            throw new ProjectNotFoundException("Project not found in your account");
         }
 
         return project;
     }
+
     // returns all json objects as a list
-    public Iterable<Project> findAllProjects() {
-        return projectRepository.findAll();
-    }
+    public Iterable<Project> findAllProjects(String username) { return projectRepository.findAllByProjectLeader(username); }
 
-    public void deleteProjectByIdentifier(String projectId) {
+    public void deleteProjectByIdentifier(String projectId, String username) {
 
-        Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 
-        if(project == null) {
-            throw new ProjectIdException("Cannot delete Project with ID '"
-                    + projectId
-                    + "'. This project does not exist");
-        }
-
-        projectRepository.delete(project);
+        projectRepository.delete(findProjectByIdentifier(projectId, username));
     }
 }
