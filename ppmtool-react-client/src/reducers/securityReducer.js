@@ -1,8 +1,8 @@
 import { SET_CURRENT_USER } from "../actions/types";
 
 const initialState = {
-  user: {},
-  validToken: false
+  validToken: false,
+  user: {}
 };
 
 const booleanActionPayload = payload => {
