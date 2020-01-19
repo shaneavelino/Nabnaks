@@ -15,6 +15,12 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.security.validToken) {
+      this.props.history.push("/dashboard");
+    }
+  }
+  
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -28,7 +34,7 @@ class Login extends Component {
       password: this.state.password
     };
 
-    this.props.login(LoginRequest, this.props.history);
+    this.props.login(LoginRequest);
   }
 
   render() {
