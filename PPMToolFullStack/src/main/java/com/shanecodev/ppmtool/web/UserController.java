@@ -7,6 +7,8 @@ import com.shanecodev.ppmtool.security.JwtTokenProvider;
 import com.shanecodev.ppmtool.services.MapValidationErrorService;
 import com.shanecodev.ppmtool.services.UserService;
 import com.shanecodev.ppmtool.validator.UserValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +45,18 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    @RequestMapping("/logs")
+    public String index() {
+        logger.trace("A TRACE Message");
+        logger.debug("A DEBUG Message");
+        logger.info("An INFO Message");
+        logger.warn("A WARN Message");
+        logger.error("An ERROR Message");
+
+        return "Howdy! Check out the Logs to see the output...";
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
