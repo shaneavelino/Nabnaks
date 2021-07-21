@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Layout/Header";
@@ -37,9 +37,8 @@ if (jwtToken) {
   }
 }
 
-class App extends Component {
-  render() {
-    return (
+function App() {
+  return (
       <Provider store={store}>
         <Router>
           <div className="App">
@@ -72,7 +71,6 @@ class App extends Component {
         </Router>
       </Provider>
     );
-  }
 }
 
 export default App;
