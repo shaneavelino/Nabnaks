@@ -1,13 +1,12 @@
-# Simple kanban style project management tool
-
-Goal was to learn React Redux Spring Boot and deployment
+# Project Management Tool
+Scaffold for project management application built with React.
 
 ### Front-end:
 + cd into ppmtool-react-client
 + npm install
 
 ### Back-end:
-+ open or cd into PPMToolFullStack
++ cd into PPMToolFullStack
 + open pom.xml as Maven project
 + maven clean install
 
